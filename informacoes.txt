@@ -28,4 +28,44 @@ git push -u origin main
 - Para exibir arquivos em oculto no finder do Mac é necessário apertar 
     control + shift + .
 
-- x...
+- O index.hmtl é o arquivo inicial do nosso projeto.
+- Temos que saber conectar nosso front-end em Angular com nossa API REST 
+feita com Spring Boot (construída no módulo anterior do curso).
+
+Estrutura de Pastas do Angular
+
+- e2e é o diretório para executar testes, ou seja testes unitários
+através de frameworks.
+- node_modules é a pasta onde fica o diretório do NodeJs.
+- src guarda todo o código fonte do projeto.
+- angular.json é o arquivo onde fica as configurações do Angular para o projeto.
+- assets guarda todos os arquivos estaticos como icones, imagens, pdfs e etc.
+- environments é a pasta onde ficam as configurações de ambiente, por exemplo
+se o projeto está em desenvolvimento ou em produção.
+- index.html é a página inicial do sistema e faz referencia ao elemento principal
+que é o app-root
+- main.ts é o ponto de entrada para inicialização dos módulos, serve para dar o start 
+em um ou mais módulos que serão chamados em sequência.
+- app é a pasta padrão do projeto que contém o primeiro componente de exemplo.
+- Um componente no Angular é basicamente a união de três arquivos, sendo um html,
+css e typescript.
+- Podemos ter serviços e algumas outras coisas dentro de um componente.
+- Uma tela de cadastro de produto pode ser um componente por exemplo.
+- app.component.spec.ts arquivo para testes unitários do componente.
+- app.module.ts onde fica a declaração do componente e inicialização dos módulos.
+
+Instalação do Bootstrap framework
+
+- npm install bootstrap@4.1.3 jquery@3.3.1 popper.js@1.14.3 --save
+- Temos que declarar o css do bootstrap no arquivo angular.json, veja abaixo:
+
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "src/styles.css"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/popper.js/dist/umd/popper.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js"
+            ]
+- 
