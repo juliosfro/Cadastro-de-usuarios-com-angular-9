@@ -1,0 +1,31 @@
+Curso de Java Avançado.
+
+cd /Users/julio/Library/Mobile\ Documents/com\~apple\~CloudDocs/cursos/CursoJavaAvancadoAlex 
+
+ng new Curso-Angular-REST --minimal 
+ng new Curso-Angular-REST
+
+cd Curso-Angular-REST/
+
+npm start
+
+** Angular Live Development Server is listening on localhost:4200, 
+open your browser on http://localhost:4200/ **
+
+echo "# CursoAngular8" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/juliosfro/CursoAngular8.git
+git push -u origin main
+
+…or push an existing repository from the command line
+git remote add origin https://github.com/juliosfro/CursoAngular8.git
+git branch -M main
+git push -u origin main
+
+- Para exibir arquivos em oculto no finder do Mac é necessário apertar 
+    control + shift + .
+
+- x...
