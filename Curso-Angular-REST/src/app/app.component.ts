@@ -1,3 +1,4 @@
+import { logging } from 'protractor';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Curso-Angular-REST';
+  title = 'Curso de Angular com API REST';
+  usuario = { login: '', senha: '' }
+
+  public login() {
+    console.log("Teste de login: " + this.usuario.login + " senha: " + this.usuario.senha);
+  }
 }
