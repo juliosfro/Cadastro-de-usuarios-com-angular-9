@@ -1,4 +1,4 @@
-import { logging } from 'protractor';
+import { LoginService } from './service/login.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -10,7 +10,13 @@ export class AppComponent {
   title = 'Curso de Angular com API REST';
   usuario = { login: '', senha: '' }
 
-  public login() {
-    console.log("Teste de login: " + this.usuario.login + " senha: " + this.usuario.senha);
+  constructor(private loginService: LoginService) {
+
   }
+
+  public login() {
+    this.loginService.login(this.usuario);
+    // console.log("Teste de login: " + this.usuario.login + " senha: " + this.usuario.senha);
+  }
+
 }

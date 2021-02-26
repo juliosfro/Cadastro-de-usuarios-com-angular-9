@@ -53,3 +53,23 @@ Instalação do Bootstrap framework
 
 - É necessário fazer o módulo 31 do curso para depois fazer o módulo 32,
 pois um depende do outro.
+
+- Vamos criar uma classe de constantes via linha de comando:
+    ng generate class AppConstants --skipTests=true
+
+- A classe acima foi criada dentro do diretório: Curso-Angular-REST/src/app
+- Vamos criar uma pasta chamada service dentro da pasta app
+- Podemos criar com o comando mkdir service
+- Dentro da pasta service rodamos o comando: ng generate service LoginService --skipTests=true
+- Obs.: O comando --skipTests já está depreciado o novo é --skip-tests
+- Uma dica é quando for criar um serviço não colocar o nome Service no nome do serviço 
+pois ele é adicionado automaticamente.
+- O jeito correto é dessa forma: ng generate service Login --skipTests=true
+
+Access-Control-Allow-Origin
+
+"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqdWxpbyIsImV4cCI6MTYxNDUxNDgyNH0.lF5P1k9c7nOAEfmTXknTgDgQAc6VaDiRCEXNEsjQ4NiOyCCkltH_6lXOz01JRj_B31jSdkY6aHvktHzZI7pT1w"
+
+Validando formulário de login
+
+xxx...
