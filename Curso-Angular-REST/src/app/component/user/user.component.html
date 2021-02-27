@@ -1,0 +1,14 @@
+<table class="table">
+    <thead class="thead-dark">
+        <th scope="col">Id</th>
+        <th scope="col">Nome</th>
+        <th scope="col">CPF</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{user.id}}</td>
+            <td>{{user.nome}}</td>
+            <td>{{user.cpf}}</td>
+        </tr>
+    </tbody>
+</table>

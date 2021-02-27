@@ -72,4 +72,48 @@ Access-Control-Allow-Origin
 
 Validando formulário de login
 
-xxx...
+- Vamos criar nosso componente Home com o comando: ng g c Home --skipTests=true
+
+Criando um Interceptor
+
+- O interceptador tanto de requisição como de resposta, tudo o que fizermos no sistema
+passará pelo interceptador e a resposta também passará por ele.
+
+- Sempre é necessário enviar um token de autenticação para podermos fazer um cadastro,
+atualizar, consultar, deletar um produto por exemplo. No Angular o front-end precisa 
+enviar esse token a cada requisição, antigamente o token era testado através do postman,
+nesse caso o interceptador mandará o token a cada requisição realizada.
+
+- Dentro da pasta service em Curso-Angular-REST/src/app/service vamos criar nosso service
+de interceptação.
+- Criaremos nosso serviço com o seguinte comando: ng g s HeaderInterceptor --skipTests=true
+
+Class Model e Service do Usuário
+
+- Vamos criar um service de usuario com o comando: ng g s Usuario --skipTests=true
+- Vamos criar uma classe model no Angular com os mesmos atributos da classe de Usuario 
+que está no Java, vamos criar uma classe para representar os dados que virão do banco
+de dados.
+- Na classe de modelo no lado front-end colocamos somente os atributos que podem ser 
+publicos, como nome, login e id por exemplo.
+
+Criando Componente tela de Usuário
+
+- Criamos nosso componente User com o comando: ng g component User --skipTests=true
+- Nosso componente de usuario foi criado no diretório Curso-Angular-REST/src/app/component/user
+- Quando criamos um componente é criado uma pasta com o nome do componente com os três 
+arquivos que fazem parte do componente dentro.
+- O certo é entrar dentro do diretório component e então executar o comando para criar
+o componente.
+
+- O arquivo de implantação de um projeto em Angular pode ser adicionado no servidor TomCat.
+- O arquivo de implantação é gerado dentro da pasta dist.
+- ng build -c production --base-href /angular8/
+- Será criado uma pasta chamada angular8 com os arquivos do projeto dentro, basta copiar
+a pasta para webapps do TomCat, antes é preciso editar no arquivo index.html o href e 
+deixar /angular8/ 
+- A referencia do href deve ser o mesmo nome da pasta que está o projeto.
+
+Criando o DELETE em nosso projeto Angular 8
+
+- xxx...

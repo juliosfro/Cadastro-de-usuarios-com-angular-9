@@ -1,22 +1,28 @@
+import { Router } from '@angular/router';
 import { LoginService } from './service/login.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
   title = 'Curso de Angular com API REST';
-  usuario = { login: '', senha: '' }
 
-  constructor(private loginService: LoginService) {
+  /* Precisamos do construtor recebendo o router */
+  constructor(private router: Router) { }
 
+  ngOnInit(): void {
+    if (localStorage.getItem("token") == null) {
+      this.router.navigate(['login']);
+    }
   }
 
-  public login() {
-    this.loginService.login(this.usuario);
-    // console.log("Teste de login: " + this.usuario.login + " senha: " + this.usuario.senha);
+  public sair(): void {
+    /* Para limpar o token */
+    localStorage.clear();
+    this.router.navigate(['login']);
   }
-
 }
