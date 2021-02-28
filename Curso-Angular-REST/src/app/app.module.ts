@@ -10,25 +10,29 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { ModuleWithProviders } from '@angular/compiler/src/core';
 import { LoginComponent } from './login/login.component';
-import { UserComponent } from './component/user/user.component'
+import { UserComponent } from './component/user/user.component';
+import { UsuarioAddComponent } from './component/user/usuario-add/usuario-add.component';
 
 /* Criamos um array para armazenar nossas rotas. */
 export const appRouters: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: '', component: LoginComponent },
-  { path: 'users', component: UserComponent }
+  { path: 'users', component: UserComponent },
+  { path: 'usuarioAdd', component: UsuarioAddComponent },
+  { path: 'usuarioAdd/:id', component: UsuarioAddComponent }
 ];
 
 /* Temos que exportar para poder funcionar */
-export const routes : ModuleWithProviders = RouterModule.forRoot(appRouters);
+export const routes: ModuleWithProviders = RouterModule.forRoot(appRouters);
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    UserComponent
+    UserComponent,
+    UsuarioAddComponent
   ],
   imports: [
     BrowserModule,

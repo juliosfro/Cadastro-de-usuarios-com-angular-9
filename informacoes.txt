@@ -116,4 +116,6 @@ deixar /angular8/
 
 Criando o DELETE em nosso projeto Angular 8
 
-- xxx...
+Rotas de edição e tela de cadastro - Parte 1
+
+9:00 parei em...

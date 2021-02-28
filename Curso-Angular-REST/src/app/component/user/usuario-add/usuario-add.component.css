@@ -1,0 +1,16 @@
+form {
+    border-style: solid;
+    border-color: black;
+    border-width: thin;
+    position: relative;
+    margin: auto;
+    width: 80%;
+    background: #ffffff;
+    padding: 10px;
+}
+
+h3 {
+    padding-top: 10px;
+    margin: auto;
+    width: 80%;
+}
