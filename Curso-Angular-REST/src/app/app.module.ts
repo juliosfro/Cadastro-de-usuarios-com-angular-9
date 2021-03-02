@@ -1,3 +1,4 @@
+import { RouteGuardianGuard } from './service/route-guardian.guard';
 import { HttpInterceptorModule } from './service/header-interceptor.service';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -15,12 +16,12 @@ import { UsuarioAddComponent } from './component/user/usuario-add/usuario-add.co
 
 /* Criamos um array para armazenar nossas rotas. */
 export const appRouters: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, canActivate: [RouteGuardianGuard] },
   { path: 'login', component: LoginComponent },
   { path: '', component: LoginComponent },
-  { path: 'users', component: UserComponent },
-  { path: 'usuarioAdd', component: UsuarioAddComponent },
-  { path: 'usuarioAdd/:id', component: UsuarioAddComponent }
+  { path: 'users', component: UserComponent, canActivate: [RouteGuardianGuard] },
+  { path: 'usuarioAdd', component: UsuarioAddComponent, canActivate: [RouteGuardianGuard] },
+  { path: 'usuarioAdd/:id', component: UsuarioAddComponent, canActivate: [RouteGuardianGuard] }
 ];
 
 /* Temos que exportar para poder funcionar */

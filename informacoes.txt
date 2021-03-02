@@ -118,4 +118,20 @@ Criando o DELETE em nosso projeto Angular 8
 
 Rotas de edição e tela de cadastro - Parte 1
 
-9:00 parei em...
+Protegendo as rotas do com Router Guard
+
+- Existe outras partes que são as rotas que definem por exemplo que um usuário admin 
+tem acesso a determinadas rotas, vamos conhecer o Router Guard que é quem faz a 
+verificação se o usuário que esta logado tem acesso a rota que deseja acessar.
+
+- Criamos o serviço de guardião com o comando: ng generate guard RouteGuardian
+
+- O guardião é referenciado no arquivo app.module.ts através do método canActivate
+dentro do array de rotas.
+
+- Através do guardião também podemos implementar controles de acesso de acordo com o
+papél do usuário.
+
+Criando o Controller Advice - Parte 1
+
+- xxx...

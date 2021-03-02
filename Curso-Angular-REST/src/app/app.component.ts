@@ -1,5 +1,4 @@
 import { Router } from '@angular/router';
-import { LoginService } from './service/login.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -24,5 +23,13 @@ export class AppComponent implements OnInit {
     /* Para limpar o token */
     localStorage.clear();
     this.router.navigate(['login']);
+  }
+
+  public esconderBarra(): boolean {
+    if (localStorage.getItem("token") !== null && localStorage.getItem("token").toString().trim() !== null) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

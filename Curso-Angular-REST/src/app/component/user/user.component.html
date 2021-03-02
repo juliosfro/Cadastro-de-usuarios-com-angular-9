@@ -1,26 +1,30 @@
-<form class="form-inline">
-    <div class="form-group mx-sm-3 mb-2">
-        <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="nome" placeholder="Pesquisa por nome">
-    </div>
-    <button type="button" (click)="readUserByName()" class="btn btn-primary mb-2">Buscar</button>
-    <button type="button" [routerLink]="['/usuarioAdd']" style="margin-left: 5px;" class="btn btn-success mb-2">Novo</button>
-</form>
+<div class="form-read-user">
+    <form class="form-inline">
+        <div class="form-group">
+            <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="nome"
+                placeholder="Pesquisa por nome">
+        </div>
+        <button type="button" (click)="readUserByName()" id="buscar" class="btn btn-primary mb-2">Buscar</button>
+        <button type="button" [routerLink]="['/usuarioAdd']" style="margin-left: 5px;"
+            class="btn btn-success mb-2">Novo</button>
+    </form>
 
-<table class=" table table-striped table-bordered ">
-    <thead class="thead-dark ">
-        <th scope="col ">Id</th>
-        <th scope="col ">Nome</th>
-        <th scope="col ">CPF</th>
-        <th scope="col ">Deletar</th>
-        <th scope="col ">Editar</th>
-    </thead>
-    <tbody>
-        <tr *ngFor="let user of users ">
-            <td>{{user.id}}</td>
-            <td>{{user.nome}}</td>
-            <td>{{user.cpf}}</td>
-            <td><button (click)="deleteUser(user.id) " class="btn btn-warning ">Deletar</button></td>
-            <td><button [routerLink]="['/usuarioAdd', user.id]" class="btn btn-success ">Editar</button></td>
-        </tr>
-    </tbody>
-</table>
+    <table class=" table table-striped table-bordered ">
+        <thead class="thead-dark ">
+            <th scope="col ">Id</th>
+            <th scope="col ">Nome</th>
+            <th scope="col ">CPF</th>
+            <th scope="col ">Deletar</th>
+            <th scope="col ">Editar</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users ">
+                <td>{{user.id}}</td>
+                <td>{{user.nome}}</td>
+                <td>{{user.cpf}}</td>
+                <td><button (click)="deleteUser(user.id) " class="btn btn-warning ">Deletar</button></td>
+                <td><button [routerLink]="['/usuarioAdd', user.id]" class="btn btn-success ">Editar</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
