@@ -134,4 +134,41 @@ papél do usuário.
 
 Criando o Controller Advice - Parte 1
 
-- xxx...
+- Vamos aprender como interceptar todos os erros do nosso sistema e fazer ele subir 
+até na nossa aplicação feita com Angular, para conseguir mostrar as mensagens de erros 
+pro usuário, para mostrar que deu algum erro, por exemplo se o usuario tentar salvar e 
+de algum erro e o sistema não informar isso pro usuario então o usuario irá pensar que 
+os dados foram salvos no banco de dados.
+- Temos sempre que alertar o usuario caso tenha dado algo de errado ou mesmo que tenha 
+dado tudo certo.
+- O sistema sempre tem que informar o usuario.
+- Precisamos montar um arquitetura própria no back-end usando recursos do Spring para 
+validar as partes de erro.
+---------------------------------------------------------------------------------------
+
+/* Consumindo API publica externa ViaCep... */
+
+			//URL url = new URL("http://viacep.com.br/ws/"+usuario.getCep()+"/json/");
+			//URLConnection connection = url.openConnection();
+			//InputStream inputStream = connection.getInputStream();
+			//BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+
+			//String cep = "";
+			//StringBuilder jsonCep = new StringBuilder();
+
+			//	while (( cep = bufferedReader.readLine()) != null) {
+			//		jsonCep.append(cep);
+			//	}
+
+			// System.out.println(jsonCep.toString());
+
+			//Usuario usuarioAuxiliar = new Gson().fromJson(jsonCep.toString(), Usuario.class);
+
+			//usuario.setCep(usuarioAuxiliar.getCep());
+			//usuario.setLogradouro(usuarioAuxiliar.getLogradouro());
+			//usuario.setComplemento(usuarioAuxiliar.getComplemento());
+			//usuario.setBairro(usuarioAuxiliar.getBairro());
+			//usuario.setLocalidade(usuarioAuxiliar.getLocalidade());
+			//usuario.setUf(usuarioAuxiliar.getUf());
+---------------------------------------------------------------------------------------
+

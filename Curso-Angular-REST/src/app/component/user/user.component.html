@@ -20,7 +20,7 @@
         <tbody>
             <tr *ngFor="let user of users ">
                 <td>{{user.id}}</td>
-                <td>{{user.nome}}</td>
+                <td class="uppercase">{{user.nome}}</td>
                 <td>{{user.cpf}}</td>
                 <td><button (click)="deleteUser(user.id) " class="btn btn-warning ">Deletar</button></td>
                 <td><button [routerLink]="['/usuarioAdd', user.id]" class="btn btn-success ">Editar</button></td>

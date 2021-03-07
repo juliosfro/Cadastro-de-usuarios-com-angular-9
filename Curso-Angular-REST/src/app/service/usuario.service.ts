@@ -24,7 +24,7 @@ export class UsuarioService {
   }
 
   readUserByName(name: String): Observable<any> {
-    return this.http.get<any>(AppConstants.baseUrl.toString() + "usuarioPorNome/" + name);
+    return this.http.get<any>(AppConstants.baseUrl.toString() + "usuarioPorNome/" + name.toLowerCase());
   }
 
   createUser(user: User): Observable<any> {
