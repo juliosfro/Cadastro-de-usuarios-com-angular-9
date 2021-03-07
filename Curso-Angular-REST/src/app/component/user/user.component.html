@@ -1,8 +1,8 @@
 <div class="form-read-user">
     <form class="form-inline">
         <div class="form-group">
-            <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="nome"
-                placeholder="Pesquisa por nome">
+            <input type="text" onkeyup="this.value = this.value.toLowerCase();" class="form-control" id="nome" name="nome" [(ngModel)]="nome"
+            placeholder="Pesquisa por nome">
         </div>
         <button type="button" (click)="readUserByName()" id="buscar" class="btn btn-primary mb-2">Buscar</button>
         <button type="button" [routerLink]="['/usuarioAdd']" style="margin-left: 5px;"
@@ -20,7 +20,7 @@
         <tbody>
             <tr *ngFor="let user of users ">
                 <td>{{user.id}}</td>
-                <td class="uppercase">{{user.nome}}</td>
+                <td>{{user.nome | uppercase}}</td>
                 <td>{{user.cpf}}</td>
                 <td><button (click)="deleteUser(user.id) " class="btn btn-warning ">Deletar</button></td>
                 <td><button [routerLink]="['/usuarioAdd', user.id]" class="btn btn-success ">Editar</button></td>

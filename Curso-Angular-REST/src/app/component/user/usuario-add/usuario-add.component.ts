@@ -24,7 +24,7 @@ export class UsuarioAddComponent implements OnInit {
   }
 
   createUser(): void {
-    if (this.usuario.id != null && this.usuario.id.toString().trim() != null) {
+    if (this.usuario.getId() != null && this.usuario.getId().toString().trim() != null) {
       this.userService.updateUser(this.usuario).subscribe(data => {
         this.newUser();
       });
