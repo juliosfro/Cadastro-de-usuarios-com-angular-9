@@ -13,6 +13,8 @@ import { ModuleWithProviders } from '@angular/compiler/src/core';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './component/user/user.component';
 import { UsuarioAddComponent } from './component/user/usuario-add/usuario-add.component';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
+import {NgxPaginationModule} from 'ngx-pagination';
 
 /* Criamos um array para armazenar nossas rotas. */
 export const appRouters: Routes = [
@@ -24,7 +26,7 @@ export const appRouters: Routes = [
   { path: 'usuarioAdd/:id', component: UsuarioAddComponent, canActivate: [RouteGuardianGuard] }
 ];
 
-//export const optionsMask: Partial<IConfig> | (() => Partial<IConfig>) = {};
+export const optionsMask: Partial<IConfig> | (() => Partial<IConfig>) = {};
 /* Temos que exportar para poder funcionar */
 export const routes: ModuleWithProviders = RouterModule.forRoot(appRouters);
 
@@ -43,7 +45,8 @@ export const routes: ModuleWithProviders = RouterModule.forRoot(appRouters);
     HttpClientModule,
     routes,
     HttpInterceptorModule,
-   // NgxMaskModule.forRoot(optionsMask)
+    NgxMaskModule.forRoot(optionsMask),
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

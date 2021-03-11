@@ -22,7 +22,7 @@
             <th scope="col " class="text-center">Editar</th>
         </thead>
         <tbody>
-            <tr *ngFor="let user of users">
+            <tr *ngFor="let user of users | paginate: {itemsPerPage: 5, currentPage: pagina_atual}">
                 <td class="text-center">{{user.id}}</td>
                 <td>{{user.nome | uppercase}}</td>
                 <td class="text-center">{{user.cpf}}</td>
@@ -39,12 +39,18 @@
             </tr>
         </tbody>
     </table>
+    <div class="text-center">
+        <pagination-controls (pageChange)="pagina_atual = $event" previousLabel="Voltar" nextLabel="Avançar"
+            responsive="true">
+
+        </pagination-controls>
+    </div>
 
     <head>
         <title>Tela de Consulta de Usuários</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>

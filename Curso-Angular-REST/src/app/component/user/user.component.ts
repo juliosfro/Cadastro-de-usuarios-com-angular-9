@@ -10,6 +10,7 @@ import { User } from 'src/app/model/user';
 })
 export class UserComponent implements OnInit {
 
+  pagina_atual;
   users: Observable<User[]>;
   nome: String;
 
