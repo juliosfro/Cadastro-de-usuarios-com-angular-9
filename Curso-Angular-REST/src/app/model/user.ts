@@ -1,3 +1,5 @@
+import { Telefone } from "./telefone";
+
 export class User {
 
      id: Number;
@@ -5,4 +7,7 @@ export class User {
      nome: String;
      senha: String
      cpf: String;
+
+     telefones: Array<Telefone>;
+     
 }

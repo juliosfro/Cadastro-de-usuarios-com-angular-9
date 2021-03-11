@@ -28,9 +28,11 @@ export class UserComponent implements OnInit {
   }
 
   deleteUser(id: Number) {
-    this.usuarioService.deleteUserById(id).subscribe(data => {
-      this.readAllUsers();
-    });
+    if (confirm('Deseja remover esse usuário?')) {
+      this.usuarioService.deleteUserById(id).subscribe(data => {
+        this.readAllUsers();
+      });
+    }
   }
 
   readUserByName() {

@@ -172,3 +172,48 @@ validar as partes de erro.
 			//usuario.setUf(usuarioAuxiliar.getUf());
 ---------------------------------------------------------------------------------------
 
+AULA - Inserindo usuário padrão ao cadastrar - Parte 1
+
+- Sempre que for cadastrar um novo usuario devemos dar um papel de acesso pra ele,
+esse papel de acesso será definido na tabela usuarios_role.
+
+- Primeiro passo descobrir o nome da constraint para remover.
+	
+	select constraint_name from information_schema.constraint_column_usage
+	where table_name = 'usuarios_role'
+	and column_name = 'role_id'
+	and constraint_name <> 'unique_role_user';
+
+- Segundo passo remover a constraint.
+
+	alter table usuarios_role drop constraint uk_krvk2qx218dxa3ogdyplk0wxw;
+
+- Para descobrir o código do acesso.
+
+	select id from role where nome_role = 'ROLE_USER';
+
+- Para inserir o acesso padrão para o novo usuario:
+
+		insert into usuarios_role (usuario_id, role_id) 
+		values (102, (select id from role where nome_role = 'ROLE_USER'));
+
+- Deletamos a constraint que impedia de ter os mesmos acessos para usuarios 
+diferentes por exemplo podia ter apenas um usuario administrador.
+
+- Para ver os papeis de usuario.
+
+	select * from usuarios_role;
+
+- O próximo passo é pegar o SQL e implementar no nosso serviço no Java no método 
+de cadastrar novo usuario, após salvar o usuario será obtido seu códido e a partir 
+daí serão executadas todas as rotinas em cascata.
+
+AULA - Inserindo usuário padrão ao cadastrar no controller - Parte 2
+
+AULA - Carregando os Telefones em tela
+
+AULA - Removendo telefone do banco de dados
+
+AULA - Criando Mascaras no campos
+
+- 

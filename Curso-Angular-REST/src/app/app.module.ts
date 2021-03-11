@@ -24,6 +24,7 @@ export const appRouters: Routes = [
   { path: 'usuarioAdd/:id', component: UsuarioAddComponent, canActivate: [RouteGuardianGuard] }
 ];
 
+//export const optionsMask: Partial<IConfig> | (() => Partial<IConfig>) = {};
 /* Temos que exportar para poder funcionar */
 export const routes: ModuleWithProviders = RouterModule.forRoot(appRouters);
 
@@ -41,7 +42,8 @@ export const routes: ModuleWithProviders = RouterModule.forRoot(appRouters);
     FormsModule,
     HttpClientModule,
     routes,
-    HttpInterceptorModule
+    HttpInterceptorModule,
+   // NgxMaskModule.forRoot(optionsMask)
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -14,3 +14,16 @@ h3 {
     margin: auto;
     width: 80%;
 }
+
+#novo, #voltar, #salvar {
+    margin-top: 20px;
+}
+
+.upperCase {
+    text-transform: uppercase;
+}
+
+table {
+    margin-top: 10px;
+    width: 50%;
+}
