@@ -15,6 +15,10 @@ export class UsuarioService {
     return this.http.get<any>(AppConstants.baseUrl.toString());
   }
 
+  readAllUsersPage(pagina: Number): Observable<any> {
+    return this.http.get<any>(AppConstants.baseUrl + 'page/' + pagina);
+  }
+
   readUserById(id: Number): Observable<any> {
     return this.http.get(AppConstants.baseUrl.toString() + id);
   }
@@ -23,8 +27,14 @@ export class UsuarioService {
     return this.http.delete(AppConstants.baseUrl.toString() + id, { responseType: 'text' });
   }
 
-  readUserByName(name: String): Observable<any> {
-    return this.http.get<any>(AppConstants.baseUrl.toString() + "usuarioPorNome/" + name.toLowerCase());
+  readUserByNamePage(name: String, page: number): Observable<any> {
+    if (name !== undefined && page !== undefined) {
+      //return this.http.get<any>(AppConstants.baseUrl.toString() + "usuarioPorNome/" + name.toLowerCase() + "/page/" + page);
+      return this.http.get<any>(AppConstants.baseUrl.toString() + "search/nome/" + name.toLowerCase() + "/pagina/" + page + "?size=" + 5);
+     
+    } else {
+      return this.http.get<any>(AppConstants.baseUrl.toString() + "usuarioPorNome/" + name + "/page/" + page);
+    }
   }
 
   createUser(user: User): Observable<any> {
@@ -36,7 +46,7 @@ export class UsuarioService {
   }
 
   deleteTelephoneById(id: Number): Observable<any> {
-    return this.http.delete(AppConstants.baseUrl + "removeTelephone/" + id, {responseType: 'text'});
+    return this.http.delete(AppConstants.baseUrl + "removeTelephone/" + id, { responseType: 'text' });
   }
 
   isUserAutenticated(): boolean {

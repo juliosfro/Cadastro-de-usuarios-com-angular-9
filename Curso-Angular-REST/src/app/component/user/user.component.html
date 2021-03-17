@@ -1,8 +1,8 @@
 <div class="form-read-user">
     <form class="form-inline">
         <div class="form-group">
-            <input type="text" onkeyup="this.value = this.value.toLowerCase();" class="form-control" id="nome"
-                name="nome" [(ngModel)]="nome" placeholder="Pesquisa por nome">
+            <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="nome"
+                placeholder="Pesquisa por nome">
         </div>
         <button type="button" (click)="readUserByName()" id="buscar" class="btn btn-primary mb-2">
             <span class="glyphicon glyphicon-search"></span> Buscar
@@ -22,12 +22,13 @@
             <th scope="col " class="text-center">Editar</th>
         </thead>
         <tbody>
-            <tr *ngFor="let user of users | paginate: {itemsPerPage: 5, currentPage: pagina_atual}">
+            <tr
+                *ngFor="let user of users | paginate: {itemsPerPage: 5, currentPage: pagina_atual, totalItems : total}; let indice = index">
                 <td class="text-center">{{user.id}}</td>
                 <td>{{user.nome | uppercase}}</td>
                 <td class="text-center">{{user.cpf}}</td>
                 <td class="text-center">
-                    <button (click)="deleteUser(user.id)" class="btn btn-warning">
+                    <button (click)="deleteUserById(user.id, indice)" class="btn btn-warning">
                         <span class="glyphicon glyphicon-trash"></span> Deletar
                     </button>
                 </td>
@@ -39,10 +40,10 @@
             </tr>
         </tbody>
     </table>
-    <div class="text-center">
-        <pagination-controls (pageChange)="pagina_atual = $event" previousLabel="Voltar" nextLabel="Avançar"
-            responsive="true">
 
+    <div class="clearfix">
+        <pagination-controls (pageChange)="carregarUsuarioPaginado(pagina_atual = $event);" previousLabel="Voltar"
+            nextLabel="Avançar">
         </pagination-controls>
     </div>
 
