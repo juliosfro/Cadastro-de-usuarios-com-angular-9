@@ -1,19 +1,34 @@
 
-#nome {
-    margin-right: 8px;
+#div-nome {
     margin-bottom: 5px;
-    position: relative;
+    margin-right: 5px;
+    box-sizing: border-box;
+    position: absolute, fixed;
+    height: auto;
 }
 
-#buscar, #novo {
-    margin-right: 4px;
+#nome {
+    width: 500px;
+}
+
+#buscar {
+    position: relative, fixed;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#novo {
+    margin-right: 5px;
     margin-bottom: 5px;
+    margin-left: 5x;
+    position: absolute, fixed;
 }
 
 .form-read-user {
-    padding-left: 20%;
-    padding-right: 20%;
+    padding-left: 16%;
+    padding-right: 10%;
     background: #ffffff;
+    position: absolute;
 }
 
 #th-id, #th-nome {
@@ -30,22 +45,22 @@
 #select {
     width: 40px;
     position: absolute;
-    margin-left: 460px;
+    margin-left: 510px;
 }
 
 #lbl-items {
     width: 200px;
     position: absolute;
-    margin-left: 350px;
+    margin-left: 400px;
 }
 
 #paginacao {
     position: relative;
     width: 320px;
     height: auto;
-    margin-left: 620px;
+    margin-left: 650px;
     font-size: 14px;
-    padding: 0px;
+    padding-left: 52px;
 }
 
 #lbl-registers {

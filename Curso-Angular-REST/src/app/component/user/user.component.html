@@ -1,10 +1,10 @@
 <div class="form-read-user">
     <form class="form-inline">
-        <div class="form-group">
+        <div id="div-nome">
             <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="nome"
                 placeholder="Pesquisa por nome">
         </div>
-        <button type="button" (click)="readUserByName()" id="buscar" class="btn btn-primary mb-2">
+        <button type="button" (click)="carregarUsuarioPaginado(pagina_atual)" id="buscar" class="btn btn-primary mb-2">
             <span class="glyphicon glyphicon-search"></span> Buscar
         </button>
         <button type="button" [routerLink]="['/usuarioAdd']" id="novo" style="margin-left: 5px;"

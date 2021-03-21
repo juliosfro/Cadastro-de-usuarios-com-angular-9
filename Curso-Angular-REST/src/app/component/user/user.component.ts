@@ -21,13 +21,10 @@ export class UserComponent implements OnInit {
   // Configuração da ordenação
   key: string = 'id';
   reverse: boolean = true;
+
   sort(key) {
-    if (this.key !== key) {
-      this.key = key;
-      this.reverse = true;
-    } else if (this.key === key) {
-      this.reverse = !this.reverse;
-    }
+    this.key = (this.key !== key) ? key : this.key;
+    this.reverse = (this.key !== key) ? true : !this.reverse;
     this.carregarUsuarioPaginado(this.pagina_atual);
   }
 
@@ -35,49 +32,42 @@ export class UserComponent implements OnInit {
     /* No front-end a primeira página é a número 1 e no banco de dados é a numero 0 */
     this.carregarUsuarioPaginado(1);
     document.getElementById('nome').focus();
-
   }
 
   deleteUserById(id: Number, index: number) {
     document.getElementById('nome').focus();
-    if (confirm('Deseja remover esse usuário?')) {
+    (confirm('Deseja remover esse usuário?')) ?
       this.usuarioService.deleteUserById(id).subscribe(data => {
         this.users.splice(index, 1);
-      });
-    }
+      }) : null;
   }
 
-  readUserByName() {
-    document.getElementById('nome').focus();
-    if (this.nome === undefined || this.nome.trim() === "") {
-      this.pagina_atual = 1;
-      this.usuarioService.readAllUsersPageSort((this.pagina_atual - 1), this.reverse, this.key, this.size).subscribe(data => {
-        this.users = data.content;
-        this.total = data.totalElements;
-      });
-    } else {
-      this.carregarUsuarioPaginado(this.pagina_atual);
-    }
+  readUserByNamePageSort(pagina: number): void {
+    this.pagina_atual = pagina;
+    this.usuarioService.readUserByNamePageSort(this.nome, (this.pagina_atual - 1), this.reverse, this.key, this.size).subscribe(data => {
+
+      this.users = data.content;
+      this.total = data.totalElements;
+
+      (this.pagina_atual > data.totalPages && this.pagina_atual !== 1)
+        ? this.readUserByNamePageSort(1) : null;
+    });
+  }
+
+  readAllUsersPageSort(pagina: number): void {
+    this.pagina_atual = pagina;
+    this.usuarioService.readAllUsersPageSort(this.pagina_atual - 1, this.reverse, this.key, this.size).subscribe(data => {
+      this.users = data.content;
+      this.total = data.totalElements;
+
+      (this.pagina_atual > data.totalPages && this.pagina_atual !== 1)
+        ? this.readAllUsersPageSort(1) : null;
+    });
   }
 
   carregarUsuarioPaginado(pagina: number): void {
     document.getElementById('nome').focus();
-    if (this.nome !== undefined && this.nome.trim() !== "") {
-      this.usuarioService.readUserByNamePageSort(this.nome, (pagina - 1), this.reverse, this.key, this.size).subscribe(data => {
-        this.users = data.content;
-        this.total = data.totalElements;
-
-        if (this.pagina_atual > data.totalPages) {
-          this.pagina_atual = 1;
-          this.carregarUsuarioPaginado(this.pagina_atual);
-        }
-
-      });
-    } else if (this.nome === undefined || this.nome.trim() === "") {
-      this.usuarioService.readAllUsersPageSort((this.pagina_atual - 1), this.reverse, this.key, this.size).subscribe(data => {
-        this.users = data.content;
-        this.total = data.totalElements;
-      });
-    }
+    (this.nome !== undefined && this.nome.trim() !== "") ?
+      this.readUserByNamePageSort(pagina) : this.readAllUsersPageSort(this.pagina_atual);
   }
 }
