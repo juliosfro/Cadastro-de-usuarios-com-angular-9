@@ -17,6 +17,7 @@ export class UsuarioAddComponent implements OnInit {
   constructor(private route: ActivatedRoute, private userService: UsuarioService) { }
 
   ngOnInit(): void {
+    document.getElementById('nome').focus();
     let id = this.route.snapshot.paramMap.get('id');
 
     if (id != null) {
@@ -30,19 +31,21 @@ export class UsuarioAddComponent implements OnInit {
     if (this.usuario.id != null && this.usuario.id.toString().trim() != null) {
       this.userService.updateUser(this.usuario).subscribe(data => {
         this.newUser();
+        document.getElementById('nome').focus();
       });
     } else {
       this.userService.createUser(this.usuario).subscribe(data => {
         this.newUser();
       });
+      document.getElementById('nome').focus();
     }
   }
 
   deleteTelephone(id, index) {
-
     /* Se for um telefone novo que não tem id */
     if (id == null) {
       this.usuario.telefones.splice(index, 1);
+      document.getElementById('telefone').focus();
       return;
     }
 
@@ -51,12 +54,13 @@ export class UsuarioAddComponent implements OnInit {
         /* Para remover o telefone da grid */
         this.usuario.telefones.splice(index, 1);
         //alert("Telefone removido. " + data);
+        document.getElementById('telefone').focus();
       });
     }
   }
 
   addTelephone(): void {
-
+    document.getElementById('telefone').focus();
     if (this.usuario.telefones === undefined) {
       this.usuario.telefones = new Array<Telefone>();
     }

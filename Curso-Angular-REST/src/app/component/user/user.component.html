@@ -12,18 +12,27 @@
             <span class="glyphicon glyphicon-plus"></span> Novo
         </button>
     </form>
-
+    
     <table class=" table table-striped table-bordered ">
         <thead class="thead-dark ">
-            <th scope="col " class="text-center">Id</th>
-            <th scope="col " class="text-center">Nome</th>
-            <th scope="col " class="text-center">CPF</th>
+            <th (click)="sort('id')" scope="col " class="text-center" id="th-id">
+                Id
+                <span *ngIf="key =='id'">{{reverse ? '▲' : '▼'}}</span>
+            </th>
+            <th (click)="sort('nome')" scope="col " class="text-center" id="th-nome">
+                Nome
+                <span *ngIf="key =='nome'">{{reverse ? '▲' : '▼'}}</span>
+            </th>
+            <th (click)="sort('cpf')" scope="col " class="text-center">
+                CPF
+                <span *ngIf="key =='cpf'">{{reverse ? '▲' : '▼'}}</span>
+            </th>
             <th scope="col " class="text-center">Deletar</th>
             <th scope="col " class="text-center">Editar</th>
         </thead>
         <tbody>
-            <tr
-                *ngFor="let user of users | paginate: {itemsPerPage: 5, currentPage: pagina_atual, totalItems : total}; let indice = index">
+            <tr *ngFor="let user of users | paginate: {itemsPerPage: size, currentPage: pagina_atual, totalItems : total};
+                 let indice = index">
                 <td class="text-center">{{user.id}}</td>
                 <td>{{user.nome | uppercase}}</td>
                 <td class="text-center">{{user.cpf}}</td>
@@ -40,11 +49,22 @@
             </tr>
         </tbody>
     </table>
-
-    <div class="clearfix">
-        <pagination-controls (pageChange)="carregarUsuarioPaginado(pagina_atual = $event);" previousLabel="Voltar"
-            nextLabel="Avançar">
-        </pagination-controls>
+    <div id="content">
+        <div id="lbl-items">
+            <p id="lbl-size">Itens por página:</p>
+        </div>
+        <div id="select">
+            <select name="size" id="size" [(ngModel)]="size" (ngModelChange)="carregarUsuarioPaginado(pagina_atual)">
+                <option *ngFor="let size of size_array">{{size}}</option>
+            </select>
+        </div>
+            <div id="lbl-registers">
+                <p> Registros encontrados: {{total}}</p>
+            </div>
+            <div id="paginacao">
+                <pagination-controls (pageChange)="carregarUsuarioPaginado(pagina_atual = $event);" previousLabel="Voltar" nextLabel="Avançar">
+                </pagination-controls>
+            </div>
     </div>
 
     <head>

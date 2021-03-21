@@ -216,4 +216,14 @@ AULA - Removendo telefone do banco de dados
 
 AULA - Criando Mascaras no campos
 
-- 
+- npm install --save ngx-mask@11.1.4
+
+AULA - Criando paginação - Parte 1
+
+- npm install --save ngx-pagination@5.0.0
+
+AULA - Criando paginação - Parte 2
+
+- A paginação deve ser feita em ambos os lados, do back-end e do front-end.
+
+AULA - Criando paginação - Parte 5

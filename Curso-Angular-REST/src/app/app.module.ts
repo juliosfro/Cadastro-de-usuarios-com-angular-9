@@ -15,6 +15,7 @@ import { UserComponent } from './component/user/user.component';
 import { UsuarioAddComponent } from './component/user/usuario-add/usuario-add.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask'
 import {NgxPaginationModule} from 'ngx-pagination';
+import { OrderModule } from 'ngx-order-pipe';  
 
 /* Criamos um array para armazenar nossas rotas. */
 export const appRouters: Routes = [
@@ -46,7 +47,8 @@ export const routes: ModuleWithProviders = RouterModule.forRoot(appRouters);
     routes,
     HttpInterceptorModule,
     NgxMaskModule.forRoot(optionsMask),
-    NgxPaginationModule
+    NgxPaginationModule,
+    OrderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
