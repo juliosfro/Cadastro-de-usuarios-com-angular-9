@@ -10,9 +10,9 @@ import { User } from 'src/app/model/user';
 export class UserComponent implements OnInit {
 
   pagina_atual = 1;
-  users: Array<User[]>;
-  nome: String;
-  total: Number;
+  users_array: Array<User[]>;
+  user = new User();
+  resultsPerPage: Number;
   size_array: Number[] = [5, 10, 15, 20];
   size: Number = this.size_array[0];
 
@@ -25,12 +25,12 @@ export class UserComponent implements OnInit {
   sort(key) {
     this.key = (this.key !== key) ? key : this.key;
     this.reverse = (this.key !== key) ? true : !this.reverse;
-    this.carregarUsuarioPaginado(this.pagina_atual);
+    this.loadUserData(this.pagina_atual);
   }
 
   ngOnInit(): void {
     /* No front-end a primeira página é a número 1 e no banco de dados é a numero 0 */
-    this.carregarUsuarioPaginado(1);
+    this.loadUserData(1);
     document.getElementById('nome').focus();
   }
 
@@ -38,36 +38,40 @@ export class UserComponent implements OnInit {
     document.getElementById('nome').focus();
     (confirm('Deseja remover esse usuário?')) ?
       this.usuarioService.deleteUserById(id).subscribe(data => {
-        this.users.splice(index, 1);
+        this.users_array.splice(index, 1);
       }) : null;
   }
 
-  readUserByNamePageSort(pagina: number): void {
-    this.pagina_atual = pagina;
-    this.usuarioService.readUserByNamePageSort(this.nome, (this.pagina_atual - 1), this.reverse, this.key, this.size).subscribe(data => {
-
-      this.users = data.content;
-      this.total = data.totalElements;
-
-      (this.pagina_atual > data.totalPages && this.pagina_atual !== 1)
-        ? this.readUserByNamePageSort(1) : null;
+  readUserByNamePageSort(): void {
+    this.usuarioService.readUserByNamePageSort(this.user.nome, (this.pagina_atual - 1), this.reverse, this.key, this.size).subscribe(data => {
+      this.users_array = data.content;
+      this.resultsPerPage = data.totalElements;
+      (this.pagina_atual > data.totalPages && this.pagina_atual !== 1) ? this.updateIndexPageUserByName() : null;
     });
   }
 
-  readAllUsersPageSort(pagina: number): void {
-    this.pagina_atual = pagina;
+  readAllUsersPageSort(): void {
     this.usuarioService.readAllUsersPageSort(this.pagina_atual - 1, this.reverse, this.key, this.size).subscribe(data => {
-      this.users = data.content;
-      this.total = data.totalElements;
-
-      (this.pagina_atual > data.totalPages && this.pagina_atual !== 1)
-        ? this.readAllUsersPageSort(1) : null;
+      this.users_array = data.content;
+      this.resultsPerPage = data.totalElements;
+      (this.pagina_atual > data.totalPages && this.pagina_atual !== 1) ? this.updateIndexPageAllUsers() : null;
     });
   }
 
-  carregarUsuarioPaginado(pagina: number): void {
+  updateIndexPageUserByName(): void {
+    this.pagina_atual = 1;
+    this.readUserByNamePageSort();
+  }
+
+  updateIndexPageAllUsers(): void {
+    this.pagina_atual = 1;
+    this.readAllUsersPageSort();
+  }
+
+  loadUserData(pagina: number): void {
+    this.pagina_atual = pagina;
     document.getElementById('nome').focus();
-    (this.nome !== undefined && this.nome.trim() !== "") ?
-      this.readUserByNamePageSort(pagina) : this.readAllUsersPageSort(this.pagina_atual);
+    (this.user.nome !== undefined && this.user.nome.trim() !== "") ?
+      this.readUserByNamePageSort() : this.readAllUsersPageSort();
   }
 }

@@ -1,10 +1,10 @@
 <div class="form-read-user">
     <form class="form-inline">
         <div id="div-nome">
-            <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="nome"
-                placeholder="Pesquisa por nome">
+            <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="user.nome"
+            (ngModelChange)="loadUserData(pagina_atual)" placeholder="Pesquisa por nome">
         </div>
-        <button type="button" (click)="carregarUsuarioPaginado(pagina_atual)" id="buscar" class="btn btn-primary mb-2">
+        <button type="button" (click)="loadUserData(pagina_atual)" id="buscar" class="btn btn-primary mb-2">
             <span class="glyphicon glyphicon-search"></span> Buscar
         </button>
         <button type="button" [routerLink]="['/usuarioAdd']" id="novo" style="margin-left: 5px;"
@@ -31,7 +31,7 @@
             <th scope="col " class="text-center">Editar</th>
         </thead>
         <tbody>
-            <tr *ngFor="let user of users | paginate: {itemsPerPage: size, currentPage: pagina_atual, totalItems : total};
+            <tr *ngFor="let user of users_array | paginate: {itemsPerPage: size, currentPage: pagina_atual, totalItems : resultsPerPage};
                  let indice = index">
                 <td class="text-center">{{user.id}}</td>
                 <td>{{user.nome | uppercase}}</td>
@@ -54,15 +54,15 @@
             <p id="lbl-size">Itens por página:</p>
         </div>
         <div id="select">
-            <select name="size" id="size" [(ngModel)]="size" (ngModelChange)="carregarUsuarioPaginado(pagina_atual)">
+            <select name="size" id="size" [(ngModel)]="size" (ngModelChange)="loadUserData(pagina_atual)">
                 <option *ngFor="let size of size_array">{{size}}</option>
             </select>
         </div>
             <div id="lbl-registers">
-                <p> Registros encontrados: {{total}}</p>
+                <p> Registros encontrados: {{resultsPerPage}}</p>
             </div>
             <div id="paginacao">
-                <pagination-controls (pageChange)="carregarUsuarioPaginado(pagina_atual = $event);" previousLabel="Voltar" nextLabel="Avançar">
+                <pagination-controls (pageChange)="loadUserData(pagina_atual = $event);" previousLabel="Voltar" nextLabel="Avançar">
                 </pagination-controls>
             </div>
     </div>
