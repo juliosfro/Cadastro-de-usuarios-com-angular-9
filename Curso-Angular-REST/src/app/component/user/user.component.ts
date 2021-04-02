@@ -22,7 +22,7 @@ export class UserComponent implements OnInit {
   key: string = 'id';
   reverse: boolean = true;
 
-  sort(key) {
+  sort(key): void {
     this.key = (this.key !== key) ? key : this.key;
     this.reverse = (this.key !== key) ? true : !this.reverse;
     this.loadUserData(this.pagina_atual);
@@ -34,7 +34,7 @@ export class UserComponent implements OnInit {
     document.getElementById('nome').focus();
   }
 
-  deleteUserById(id: Number, index: number) {
+  deleteUserById(id: Number, index: number): void {
     document.getElementById('nome').focus();
     (confirm('Deseja remover esse usuário?')) ?
       this.usuarioService.deleteUserById(id).subscribe(data => {

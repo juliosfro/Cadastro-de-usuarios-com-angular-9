@@ -37,8 +37,27 @@
         <div class="form-group col-md-3">
             <label for="cpf">CPF</label>
             <span style="color: red; font-size: 23px;" *ngIf="cpfValidate.invalid"> *</span>
-            <input type="text" mask="000.000.000-00" [(ngModel)]="usuario.cpf" #cpfValidate="ngModel" class="form-control" id="cpf"
-                required="true" name="cpf" autocomplete="false">
+            <input type="text" mask="000.000.000-00" [(ngModel)]="usuario.cpf" #cpfValidate="ngModel"
+                class="form-control" id="cpf" required="true" name="cpf" autocomplete="false">
+        </div>
+
+        <div class="form-group-append col-md-3">
+            <label for="dataNascimento">Data de Nascimento</label>
+            <span style="color: red; font-size: 23px;"> *</span>
+            <div class="position-relative w-100">
+                <div class="input-group-append">
+                    <input style="text-align: center;" id="dataNascimento" readonly name="dataNascimento" type="text"
+                        [minDate]="minDate" class="form-control" ngbDatepicker #dataNascimento="ngbDatepicker"
+                        [(ngModel)]="usuario.dataNascimento">
+                    <div class="input-group-append" style="position: absolute;">
+                        <button id="btn-calendar" style=" outline: none; box-shadow: none;" enable
+                            (click)="setFocusTelephone()" class="btn btn-success" (click)="dataNascimento.toggle()"
+                            [attr.aria-expanded]="dataNascimento.isOpen" type="button">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -49,7 +68,8 @@
         <div class="card-body">
             <div class="form-row">
                 <div class="form-group col-md-3">
-                    <input type="text" mask="(00) 0.0000-0000" class="form-control" [(ngModel)]="telefone.numero" id="telefone" name="numero">
+                    <input type="text" mask="(00) 0.0000-0000" class="form-control" [(ngModel)]="telefone.numero"
+                        id="telefone" name="numero">
                 </div>
                 <div class="form-group col-md-1">
                     <button class="btn btn-primary" (click)="addTelephone()">
@@ -79,28 +99,14 @@
         </tbody>
     </table>
 
-    <div class="form-row">
-        <div class="form-group col-md-5">
-            <button type="button" id="voltar" class="btn btn-info mb-2" [routerLink]="['/users']">
-                <span class="glyphicon glyphicon-arrow-left"></span> Voltar
-            </button>
-            <button type="button" id="novo" (click)="newUser()" class="btn btn-success mb-2" style="margin-left: 10px;">
-                <span class="glyphicon glyphicon-plus"></span> Novo
-            </button>
-            <button type="button" id="salvar" [disabled]="formValidate.invalid" (click)="createUser()"
-                class="btn btn-primary mb-2" style="margin-left: 10px;">
-                <span class="glyphicon glyphicon-save"></span> Salvar
-            </button>
-        </div>
-    </div>
-
     <head>
         <title>Tela de Cadastro e Edição de Usuários</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
 </form>

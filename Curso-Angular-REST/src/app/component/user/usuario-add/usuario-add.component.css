@@ -27,3 +27,54 @@ table {
     margin-top: 10px;
     width: 50%;
 }
+
+::ng-deep div.ngb-dp-arrow > button {
+    color: white;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 16px;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+::ng-deep div.ngb-dp-header {
+    background-color: rgba(52,104,191,1);
+    font-size: 16px;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 5px;
+}
+
+::ng-deep .ngb-dp-week {
+    width: 275px;
+    background-color: yellow;
+    justify-content: center;
+    font-size: 16px;
+}
+
+::ng-deep .ngb-dp-weekday {
+    font-size: 16px;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 4px;
+}
+
+::ng-deep .ngb-dp-day{
+    font-size: 16px;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 6px;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+::ng-deep .custom-select {
+    font-size: 14px !important;
+    width: 100px !important;
+    height: 100% !important;
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+}
