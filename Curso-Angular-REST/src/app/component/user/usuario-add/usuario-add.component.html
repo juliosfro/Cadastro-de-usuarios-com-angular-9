@@ -47,7 +47,7 @@
             <div class="position-relative w-100">
                 <div class="input-group-append">
                     <input style="text-align: center;" id="dataNascimento" readonly name="dataNascimento" type="text"
-                        [minDate]="minDate" class="form-control" ngbDatepicker #dataNascimento="ngbDatepicker"
+                        [minDate]="minDate" [maxDate]="maxDate" class="form-control" ngbDatepicker #dataNascimento="ngbDatepicker"
                         [(ngModel)]="usuario.dataNascimento">
                     <div class="input-group-append" style="position: absolute;">
                         <button id="btn-calendar" style=" outline: none; box-shadow: none;" enable
@@ -98,6 +98,21 @@
             </tr>
         </tbody>
     </table>
+
+    <div class="form-row">
+        <div class="form-group col-md-5">
+            <button type="button" id="voltar" class="btn btn-info mb-2" [routerLink]="['/users']">
+                <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+            </button>
+            <button type="button" id="novo" (click)="newUser()" class="btn btn-success mb-2" style="margin-left: 10px;">
+                <span class="glyphicon glyphicon-plus"></span> Novo
+            </button>
+            <button type="button" id="salvar" [disabled]="formValidate.invalid" (click)="createUser()"
+                class="btn btn-primary mb-2" style="margin-left: 10px;">
+                <span class="glyphicon glyphicon-save"></span> Salvar
+            </button>
+        </div>
+    </div>
 
     <head>
         <title>Tela de Cadastro e Edição de Usuários</title>

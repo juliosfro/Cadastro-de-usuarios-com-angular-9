@@ -1,5 +1,5 @@
 import { Telefone } from 'src/app/model/telefone';
-import { NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateAdapter, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioService } from './../../../service/usuario.service';
 import { User } from 'src/app/model/user';
 import { Injectable, OnInit } from '@angular/core';
@@ -51,6 +51,30 @@ export class DetailsCalendarComponent {
 }
 
 @Injectable()
+export class FormatDateAdapter extends NgbDateAdapter<string> {
+
+  readonly DELIMITER = '/';
+
+  fromModel(value: string | null): NgbDateStruct | null {
+    if (value !== null) {
+      let date = value.split(this.DELIMITER);
+      return {
+        day: parseInt(date[0], 10),
+        month: parseInt(date[1], 10),
+        year: parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
+
+  toModel(date: NgbDateStruct | null): string | null {
+    // alert('toModel FormatDateAdapter!');
+    return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : null;
+  }
+
+}
+
+@Injectable()
 export class FormataData extends NgbDateParserFormatter {
 
   readonly DELIMITER = '/';
@@ -72,6 +96,7 @@ export class FormataData extends NgbDateParserFormatter {
   }
 
   toModel(date: NgbDateStruct | null): string | null {
+    // alert('toModel FormataData!');
     return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : null;
   }
 
@@ -89,7 +114,8 @@ export class FormataData extends NgbDateParserFormatter {
   styleUrls: ['./usuario-add.component.css'],
   providers: [
     [I18n, { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n }],
-    [{ provide: NgbDateParserFormatter, useClass: FormataData }]
+    [{ provide: NgbDateParserFormatter, useClass: FormataData },
+    { provide: NgbDateAdapter, useClass: FormatDateAdapter }]
   ]
 })
 
@@ -98,6 +124,7 @@ export class UsuarioAddComponent implements OnInit {
   @ViewChild('datePickerInput') datePicker: NgbInputDatepicker;
 
   minDate = { year: 1900, month: 1, day: 1 };
+  maxDate = { year: 2030, month: 1, day: 1 };
   usuario = new User();
   telefone = new Telefone();
 
@@ -112,6 +139,7 @@ export class UsuarioAddComponent implements OnInit {
     if (id != null) {
       this.userService.readUserById(parseInt(id)).subscribe(data => {
         this.usuario = data;
+        this.usuario.dataNascimento = new Date(this.usuario.dataNascimento).toLocaleDateString("pt-br");
       });
     }
   }
@@ -122,13 +150,16 @@ export class UsuarioAddComponent implements OnInit {
 
   createUser(): void {
     if (this.usuario.id != null && this.usuario.id.toString().trim() != null) {
+     // alert(this.usuario.dataNascimento);
       this.userService.updateUser(this.usuario).subscribe(data => {
         this.newUser();
+        // this.usuario.dataNascimento = null;
         document.getElementById('nome').focus();
       });
     } else {
       this.userService.createUser(this.usuario).subscribe(data => {
         this.newUser();
+        // this.usuario.dataNascimento = null;
       });
       document.getElementById('nome').focus();
     }

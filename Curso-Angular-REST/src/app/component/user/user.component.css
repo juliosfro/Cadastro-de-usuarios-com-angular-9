@@ -25,10 +25,10 @@
 }
 
 .form-read-user {
-    padding-left: 16%;
+    padding-left: 10%;
     padding-right: 10%;
     background: #ffffff;
-    position: absolute;
+    position: relative;
 }
 
 #th-id, #th-nome {
@@ -55,12 +55,11 @@
 }
 
 #paginacao {
-    position: relative;
-    width: 320px;
-    height: auto;
-    margin-left: 650px;
+    position: relative, fixed;
+    width: 22%;
+    height: 100%;
+    margin-left: 903px;
     font-size: 14px;
-    padding-left: 73px;
 }
 
 #lbl-registers {

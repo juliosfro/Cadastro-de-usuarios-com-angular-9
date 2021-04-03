@@ -10,6 +10,7 @@ import { User } from 'src/app/model/user';
 export class UserComponent implements OnInit {
 
   pagina_atual = 1;
+  total_pages;
   users_array: Array<User[]>;
   user = new User();
   resultsPerPage: Number;
@@ -46,6 +47,7 @@ export class UserComponent implements OnInit {
     this.usuarioService.readUserByNamePageSort(this.user.nome, (this.pagina_atual - 1), this.reverse, this.key, this.size).subscribe(data => {
       this.users_array = data.content;
       this.resultsPerPage = data.totalElements;
+      this.total_pages = data.totalPages;
       (this.pagina_atual > data.totalPages && this.pagina_atual !== 1) ? this.updateIndexPageUserByName() : null;
     });
   }
@@ -54,6 +56,7 @@ export class UserComponent implements OnInit {
     this.usuarioService.readAllUsersPageSort(this.pagina_atual - 1, this.reverse, this.key, this.size).subscribe(data => {
       this.users_array = data.content;
       this.resultsPerPage = data.totalElements;
+      this.total_pages = data.totalPages;
       (this.pagina_atual > data.totalPages && this.pagina_atual !== 1) ? this.updateIndexPageAllUsers() : null;
     });
   }

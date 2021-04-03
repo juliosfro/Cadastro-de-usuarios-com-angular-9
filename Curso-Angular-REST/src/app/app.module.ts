@@ -1,5 +1,3 @@
-import { CustomDatepickerI18n, I18n } from './CustomDatepickerI18n';
-import { NgbDatePTParserFormatter } from './NgbDatePTParserFormatter';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouteGuardianGuard } from './service/route-guardian.guard';
 import { HttpInterceptorModule } from './service/header-interceptor.service';
@@ -24,8 +22,6 @@ import { OrderModule } from 'ngx-order-pipe';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
 
 defineLocale('pt-br', ptBrLocale);
 

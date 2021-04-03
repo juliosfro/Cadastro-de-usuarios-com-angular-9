@@ -60,9 +60,11 @@
         </div>
             <div id="lbl-registers">
                 <p> Registros encontrados: {{resultsPerPage}}</p>
+                <p>Página: {{pagina_atual}} de {{total_pages}}</p>
             </div>
             <div id="paginacao">
-                <pagination-controls (pageChange)="loadUserData(pagina_atual = $event);" previousLabel="Voltar" nextLabel="Avançar">
+                <pagination-controls (pageChange)="loadUserData(pagina_atual = $event);" previousLabel="Voltar" nextLabel="Avançar"
+                responsive="true" maxSize="3" autoHide="true">
                 </pagination-controls>
             </div>
     </div>

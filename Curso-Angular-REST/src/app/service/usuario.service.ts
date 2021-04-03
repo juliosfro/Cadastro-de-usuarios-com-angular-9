@@ -55,6 +55,8 @@ export class UsuarioService {
   }
 
   updateUser(user: User): Observable<any> {
+    //user.dataNascimento = "13/8/1992";
+    //alert(user.dataNascimento);
     return this.http.put<any>(`${AppConstants.baseUrl}`, user);
   }
 
