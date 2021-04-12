@@ -45,24 +45,63 @@
 #select {
     width: 40px;
     position: absolute;
-    margin-left: 510px;
+    margin-left: 46.8%;
+    padding-top: 10px;
+    padding-bottom: 0px;
 }
 
 #lbl-items {
     width: 200px;
     position: absolute;
-    margin-left: 400px;
+    margin-left: 35.5%;
+    padding-top: 10px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
 }
 
 #paginacao {
     position: relative, fixed;
-    width: 22%;
+    width: 30%;
     height: 100%;
-    margin-left: 903px;
+    margin-left: 70%;
     font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
 }
 
 #lbl-registers {
     position: absolute;
-    width: 200px;
+    width: auto;
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+h5 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    margin-left: 40%;
+}
+
+h3 {
+    padding-top: 10px;
+    margin: auto;
+    width: 80%;
+}
+
+#div-principal {
+    border-style: solid;
+    border-color: black;
+    border-width: thin;
+    position: relative;
+    margin: auto;
+    width: 80%;
+    height: auto;
+    background: #ffffff;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 0px;
 }

@@ -1,3 +1,4 @@
+import { User } from './../model/user';
 import { AppConstants } from './../app-constants';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -28,4 +29,16 @@ export class LoginService {
         alert("Acesso Negado");
       });
   }
-} 
+
+  recuperaLogin(login) {
+    let user = new User();
+    user.login = login;
+    return this.http.get(`${AppConstants.baseUrlPath}recuperar/${user.login}`).subscribe(data => {
+      const response = JSON.parse(JSON.stringify(data)).message;
+      alert(response);
+    }, error => {
+      console.error("Erro ao recuperar login");
+      alert("Erro ao recuperar login");
+    });
+  }
+}

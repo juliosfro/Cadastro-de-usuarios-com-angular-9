@@ -1,21 +1,20 @@
-import { Telefone } from 'src/app/model/telefone';
+import { UserReport } from './../../../model/userReport';
+import { User } from './../../../model/user';
 import { NgbDateAdapter, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
-import { UsuarioService } from './../../../service/usuario.service';
-import { User } from 'src/app/model/user';
+import { UsuarioService } from '../../../service/usuario.service';
 import { Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbDateParserFormatter, NgbDateStruct, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { setTheme } from 'ngx-bootstrap/utils';
 import { Component, ViewChild } from '@angular/core';
-import { Profissao } from 'src/app/model/profissao';
 
 const I18N_VALUES = {
-  'pt-br': {// Provide labels in multiple languages
-    weekdays: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'], // Use whatever values you want in any language
+  'pt-br': {
+    weekdays: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
     months: ['Janeiro', 'Fevereiro', 'Março',
       'Abril', 'Maio', 'Junho',
       'Julho', 'Agosto', 'Setembro',
-      'Outubro', 'Novembro', 'Dezembro']// // Use whatever values you want in any language
+      'Outubro', 'Novembro', 'Dezembro']
   }
 };
 
@@ -50,7 +49,7 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
   getMonthShortName(month: number): string {
     return I18N_VALUES[this._i18n.language].months[month - 1];
   }
-  
+
   getMonthFullName(month: number): string {
     return this.getMonthShortName(month);
   }
@@ -69,6 +68,7 @@ export class DetailsCalendarComponent {
 export class FormatDateAdapter extends NgbDateAdapter<string> {
 
   readonly DELIMITER = '/';
+  formataData: FormataData;
 
   fromModel(value: string | null): NgbDateStruct | null {
     if (value !== null) {
@@ -83,8 +83,7 @@ export class FormatDateAdapter extends NgbDateAdapter<string> {
   }
 
   toModel(date: NgbDateStruct | null): string | null {
-    // alert('toModel FormatDateAdapter!');
-    return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : null;
+    return date ? this.formataData.validateDayAndMonth(date.day.toString()) + this.DELIMITER + this.formataData.validateDayAndMonth(date.month.toString()) + this.DELIMITER + date.year : null;
   }
 
 }
@@ -112,7 +111,7 @@ export class FormataData extends NgbDateParserFormatter {
 
   toModel(date: NgbDateStruct | null): string | null {
     // alert('toModel FormataData!');
-    return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : null;
+    return date ? this.validateDayAndMonth(date.day.toString()) + this.DELIMITER + this.validateDayAndMonth(date.month.toString()) + this.DELIMITER + date.year : null;
   }
 
   validateDayAndMonth(value: string): string {
@@ -125,8 +124,8 @@ export class FormataData extends NgbDateParserFormatter {
 
 @Component({
   selector: 'app-root',
-  templateUrl: './usuario-add.component.html',
-  styleUrls: ['./usuario-add.component.css'],
+  templateUrl: './usuario-report.component.html',
+  styleUrls: ['./usuario-report.component.css'],
   providers: [
     [I18n, { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n }],
     [{ provide: NgbDateParserFormatter, useClass: FormataData },
@@ -134,89 +133,29 @@ export class FormataData extends NgbDateParserFormatter {
   ]
 })
 
-export class UsuarioAddComponent implements OnInit {
+export class UsuarioReportComponent {
+
+  usuario = new User;
+  userReport = new UserReport;
 
   @ViewChild('datePickerInput') datePicker: NgbInputDatepicker;
 
   minDate = { year: 1900, month: 1, day: 1 };
   maxDate = { year: 2030, month: 1, day: 1 };
-  usuario = new User();
-  telefone = new Telefone();
-  profissao = new Profissao();
-  profissao_array: Array<Profissao>;
 
   constructor(private route: ActivatedRoute, private userService: UsuarioService) {
     setTheme('bs3');
   }
 
-  ngOnInit(): void {
-    document.getElementById('nome').focus();
-    
-    this.userService.readAllUsersProfessions().subscribe(data => {
-      this.profissao_array = data;
-    });
-
-    let id = this.route.snapshot.paramMap.get('id');
-
-    if (id != null) {
-      this.userService.readUserById(parseInt(id)).subscribe(data => {
-        this.usuario = data;
-        this.usuario.dataNascimento = new Date(this.usuario.dataNascimento).toLocaleDateString("pt-br");
-      });
-    }
+  imprimeRelatorio() {
+    //const dataInicio = new Date(this.userReport.dataInicio.toString());
+    //const dataFim = new Date(this.userReport.dataFim.toString());
+    //this.userReport.dataInicio = dataInicio.toLocaleString('pt-BR', { timeZone: 'UTC' });
+    //this.userReport.dataFim = dataFim.toLocaleString('pt-BR', { timeZone: 'UTC' });
+    this.userService.downloadPdfRelatorioParam(this.userReport);
   }
 
-  setFocusTelephone() {
-    document.getElementById('telefone').focus();
-  }
-
-  createUser(): void {
-    if (this.usuario.id != null && this.usuario.id.toString().trim() != null) {
-      // alert(this.usuario.dataNascimento);
-      this.userService.updateUser(this.usuario).subscribe(data => {
-        this.newUser();
-        // this.usuario.dataNascimento = null;
-        document.getElementById('nome').focus();
-      });
-    } else {
-      this.userService.createUser(this.usuario).subscribe(data => {
-        this.newUser();
-        // this.usuario.dataNascimento = null;
-      });
-      document.getElementById('nome').focus();
-    }
-  }
-
-  deleteTelephone(id, index) {
-    /* Se for um telefone novo que não tem id */
-    if (id == null) {
-      this.usuario.telefones.splice(index, 1);
-      document.getElementById('telefone').focus();
-      return;
-    }
-
-    if (id !== null && confirm("Deseja remover esse contato?")) {
-      this.userService.deleteTelephoneById(id).subscribe(data => {
-        /* Para remover o telefone da grid */
-        this.usuario.telefones.splice(index, 1);
-        //alert("Telefone removido. " + data);
-        document.getElementById('telefone').focus();
-      });
-    }
-  }
-
-  addTelephone(): void {
-    document.getElementById('telefone').focus();
-    if (this.usuario.telefones === undefined) {
-      this.usuario.telefones = new Array<Telefone>();
-    }
-
-    this.usuario.telefones.push(this.telefone);
-    this.telefone = new Telefone();
-  }
-
-  newUser(): void {
-    this.usuario = new User();
-    this.telefone = new Telefone();
+  limpaRelatorio() {
+    document.querySelector('iframe').src = '';
   }
 }

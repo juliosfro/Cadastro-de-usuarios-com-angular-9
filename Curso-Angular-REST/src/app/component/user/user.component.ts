@@ -77,4 +77,12 @@ export class UserComponent implements OnInit {
     (this.user.nome !== undefined && this.user.nome.trim() !== "") ?
       this.readUserByNamePageSort() : this.readAllUsersPageSort();
   }
+
+  imprimeRelatorio() {
+    return this.usuarioService.downloadPdfRelatorio();
+  }
+
+  limpaRelatorio() {
+    document.querySelector('iframe').src = '';
+  }
 }

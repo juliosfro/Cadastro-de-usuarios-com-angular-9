@@ -1,4 +1,4 @@
-<h3>Tela de Usuario</h3>
+<h3>Tela de Cadastro de Usuários</h3>
 
 <form style="padding: 10px;" #formValidate="ngForm">
     <div class="form-row">
@@ -43,12 +43,13 @@
 
         <div class="form-group-append col-md-3">
             <label for="dataNascimento">Data de Nascimento</label>
-            <span style="color: red; font-size: 23px;"> *</span>
+            <span style="color: red; font-size: 23px;" *ngIf="dataNascimentoValidate.invalid"> *</span>
             <div class="position-relative w-100">
                 <div class="input-group-append">
                     <input style="text-align: center;" id="dataNascimento" readonly name="dataNascimento" type="text"
-                        [minDate]="minDate" [maxDate]="maxDate" class="form-control" ngbDatepicker #dataNascimento="ngbDatepicker"
-                        [(ngModel)]="usuario.dataNascimento">
+                        [minDate]="minDate" [maxDate]="maxDate" class="form-control" ngbDatepicker
+                        #dataNascimentoValidate="ngModel" #dataNascimento="ngbDatepicker"
+                        [(ngModel)]="usuario.dataNascimento" required="true">
                     <div class="input-group-append" style="position: absolute;">
                         <button id="btn-calendar" style=" outline: none; box-shadow: none;" enable
                             (click)="setFocusTelephone()" class="btn btn-success" (click)="dataNascimento.toggle()"
@@ -58,6 +59,25 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="form-group col-md-3" style="position: relative, fixed; margin-top: 0px; padding-bottom: 0px;">
+            <label for="profissao">Profissão</label>
+            <span style="color: red; font-size: 23px;" *ngIf="profissaoValidate.invalid"> *</span>
+            <select [(ngModel)]="usuario.profissao.id" name="profissao" id="profissao" #profissaoValidate="ngModel"
+                class="form-control" required="true">
+                <option [ngValue]="p.id" *ngFor="let p of profissao_array">
+                    {{p.descricao | uppercase}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label for="salario">Salário</label>
+            <span style="color: red; font-size: 23px;" *ngIf="usuario.salario === null || usuario.salario == '' 
+            || usuario.salario === undefined"> *</span>
+            <input type="text" name="salario" id="salario" [(ngModel)]="usuario.salario" class="form-control"
+                currencyMask [options]="{prefix: 'R$ ', thousands: '.', decimal: ','}">
         </div>
     </div>
 
@@ -121,7 +141,6 @@
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
 </form>

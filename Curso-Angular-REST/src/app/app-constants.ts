@@ -12,4 +12,9 @@ export class AppConstants {
     public static get baseUrl(): String {
         return this.baseServidor + "cursospringrestapi/usuario/";
     }
+
+    public static get baseUrlPath(): String {
+        return this.baseServidor + "cursospringrestapi/";
+    }
+
 }

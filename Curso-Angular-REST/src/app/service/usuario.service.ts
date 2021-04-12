@@ -1,4 +1,5 @@
-import { User } from './../model/user';
+import { UserReport } from './../model/userReport';
+import { User } from '../model/user';
 import { AppConstants } from './../app-constants';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -10,17 +11,22 @@ import { Injectable } from '@angular/core';
 export class UsuarioService {
 
   constructor(private http: HttpClient) { }
-/*
-  readAllUsers(): Observable<any> {
-    return this.http.get<any>(AppConstants.baseUrl.toString());
-  }
-*/
+  /*
+    readAllUsers(): Observable<any> {
+      return this.http.get<any>(AppConstants.baseUrl.toString());
+    }
+  */
 
-/*
-  readAllUsersPage(pagina: Number): Observable<any> {
-    return this.http.get<any>(AppConstants.baseUrl + 'page/' + pagina + '/sort/' + 'desc');
+  /*
+    readAllUsersPage(pagina: Number): Observable<any> {
+      return this.http.get<any>(AppConstants.baseUrl + 'page/' + pagina + '/sort/' + 'desc');
+    }
+  */
+
+  readAllUsersProfessions(): Observable<any> {
+    return this.http.get<any>(`${AppConstants.baseUrlPath}profissao/`);
   }
-*/
+
   readAllUsersPageSort(pagina: number, sort: boolean, key: string, size: Number): Observable<any> {
     const ordenate = sort ? 'asc' : 'desc';
     return this.http.get<any>(`${AppConstants.baseUrl}page/${pagina}/sort/${ordenate}/criterion/${key}/size/${size}`);
@@ -38,18 +44,18 @@ export class UsuarioService {
   }
 
   deleteUserById(id: Number): Observable<any> {
-   return this.http.delete(`${AppConstants.baseUrl}${id}`, { responseType: 'text' });
+    return this.http.delete(`${AppConstants.baseUrl}${id}`, { responseType: 'text' });
   }
 
-/*
-  readUserByNamePage(name: String, page: number): Observable<any> {
-    if (name !== undefined && page !== undefined) {
-      return this.http.get<any>(AppConstants.baseUrl.toString() + "search/nome/" + name.toLowerCase() + "/pagina/" + page + '/sort/' + 'desc' + "?size=" + 5);
-    } else {
-      return this.http.get<any>(AppConstants.baseUrl.toString() + "usuarioPorNome/" + name + "/page/" + page);
+  /*
+    readUserByNamePage(name: String, page: number): Observable<any> {
+      if (name !== undefined && page !== undefined) {
+        return this.http.get<any>(AppConstants.baseUrl.toString() + "search/nome/" + name.toLowerCase() + "/pagina/" + page + '/sort/' + 'desc' + "?size=" + 5);
+      } else {
+        return this.http.get<any>(AppConstants.baseUrl.toString() + "usuarioPorNome/" + name + "/page/" + page);
+      }
     }
-  }
-*/
+  */
   createUser(user: User): Observable<any> {
     return this.http.post<any>(`${AppConstants.baseUrl}`, user);
   }
@@ -70,5 +76,21 @@ export class UsuarioService {
     } else {
       return false;
     }
+  }
+
+  downloadPdfRelatorio(): void {
+    this.http.get(AppConstants.baseUrl + 'relatorio', { responseType: 'text' }).subscribe(data => {
+      document.querySelector('iframe').src = data;
+    });
+  }
+
+  downloadPdfRelatorioParam(userReport: UserReport): void {
+    this.http.post(AppConstants.baseUrl + 'relatorio/', userReport, { responseType: 'text' }).subscribe(data => {
+      document.querySelector('iframe').src = data;
+    });
+  }
+
+  carregarGrafico(): Observable<any> {
+    return this.http.get(AppConstants.baseUrl.toString() + 'grafico');
   }
 }

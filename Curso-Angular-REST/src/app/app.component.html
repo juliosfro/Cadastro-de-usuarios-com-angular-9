@@ -15,10 +15,11 @@
                         Menu
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" [routerLink]="['/users']">Usuarios</a>
-                        <a class="dropdown-item" href="#">Link 2</a>
+                        <a class="dropdown-item" [routerLink]="['/usuarioAdd']">Cadastro de Usuários</a>
+                        <a class="dropdown-item" [routerLink]="['/users']">Consulta de Usuários</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Link 3</a>
+                        <a class="dropdown-item" [routerLink]="['/userReport']">Relatório de Usuários</a>
+                        <a class="dropdown-item" [routerLink]="['/chart']">Gráfico de Salário de Usuários</a>
                     </div>
                 </li>
             </ul>

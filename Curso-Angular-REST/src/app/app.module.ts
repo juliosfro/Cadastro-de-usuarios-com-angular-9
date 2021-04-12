@@ -1,3 +1,4 @@
+import { UsuarioReportComponent } from './component/user/usuario-report/usuario-report.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouteGuardianGuard } from './service/route-guardian.guard';
 import { HttpInterceptorModule } from './service/header-interceptor.service';
@@ -15,13 +16,16 @@ import { HomeComponent } from './home/home.component';
 import { ModuleWithProviders } from '@angular/compiler/src/core';
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './component/user/user.component';
-import { UsuarioAddComponent } from './component/user/usuario-add/usuario-add.component';
+import { customCurrencyMaskConfig, UsuarioAddComponent } from './component/user/usuario-add/usuario-add.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask'
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OrderModule } from 'ngx-order-pipe';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { NgxCurrencyModule } from 'ngx-currency';
+import { ChartsModule } from 'ng2-charts';
+import { BarChartComponent } from './component/user/bar-chart/bar-chart.component';
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -32,7 +36,9 @@ export const appRouters: Routes = [
   { path: '', component: LoginComponent },
   { path: 'users', component: UserComponent, canActivate: [RouteGuardianGuard] },
   { path: 'usuarioAdd', component: UsuarioAddComponent, canActivate: [RouteGuardianGuard] },
-  { path: 'usuarioAdd/:id', component: UsuarioAddComponent, canActivate: [RouteGuardianGuard] }
+  { path: 'usuarioAdd/:id', component: UsuarioAddComponent, canActivate: [RouteGuardianGuard] },
+  { path: 'userReport', component: UsuarioReportComponent, canActivate: [RouteGuardianGuard] },
+  { path: 'chart', component: BarChartComponent, canActivate: [RouteGuardianGuard] }
 ];
 
 export const optionsMask: Partial<IConfig> | (() => Partial<IConfig>) = {};
@@ -45,7 +51,9 @@ export const routes: ModuleWithProviders = RouterModule.forRoot(appRouters);
     HomeComponent,
     LoginComponent,
     UserComponent,
-    UsuarioAddComponent
+    UsuarioAddComponent,
+    UsuarioReportComponent,
+    BarChartComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +68,9 @@ export const routes: ModuleWithProviders = RouterModule.forRoot(appRouters);
     NgbModule,
     BsDatepickerModule.forRoot(),
     BrowserAnimationsModule,
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
+    ChartsModule
   ],
   providers: [BsLocaleService],
   bootstrap: [AppComponent],

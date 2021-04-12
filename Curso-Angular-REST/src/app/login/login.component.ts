@@ -20,6 +20,10 @@ export class LoginComponent implements OnInit {
     // console.log("Teste de login: " + this.usuario.login + " senha: " + this.usuario.senha);
   }
 
+  public recuperaLogin(): void {
+    this.loginService.recuperaLogin(this.usuario.login);
+  }
+
   ngOnInit(): void {
     if (localStorage.getItem("token") !== null && localStorage.getItem("token").toString().trim() !== null) {
       this.router.navigate(['home']);

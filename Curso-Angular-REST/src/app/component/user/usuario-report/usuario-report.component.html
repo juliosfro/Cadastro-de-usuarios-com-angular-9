@@ -1,0 +1,63 @@
+<h3>Tela de Relatório de Usuários</h3>
+
+<form style="padding: 10px;" #formValidate="ngForm">
+    <div class="form-row">
+        <div class="form-group-append col-md-3">
+            <label for="dataNascimento">Data de Nascimento Inicial</label>
+            <span style="color: red; font-size: 23px;" *ngIf="userReport.dataInicio === undefined 
+            || userReport.dataInicio.trim() === '' || userReport.dataInicio === null"> *</span>
+            <input type="date" class="form-control" #userReport.dataInicio [(ngModel)]="userReport.dataInicio"
+                id="dataInicio" name="dataInicio">
+        </div>
+
+        <div class="form-group-append col-md-3">
+            <label for="dataNascimentoFim">Data de Nascimento Final</label>
+            <span style="color: red; font-size: 23px;" *ngIf="userReport.dataFim === undefined 
+            || userReport.dataFim.trim() === '' || userReport.dataFim === null"> *</span>
+            <div class="position-relative w-100">
+                <div class="input-group-append">
+                    <input type="date" class="form-control" #userReport.dataFim [(ngModel)]="userReport.dataFim"
+                        id="dataFim" name="dataFim">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <button type="button" (click)="imprimeRelatorio()" data-toggle="modal" data-target="#modalRelatorio"
+                id="gerar-relatorio" class="btn btn-info btn-sm">
+                <i class="fa fa-list"></i> Gerar Relatório
+            </button>
+        </div>
+
+        <div class="modal fade border" id="modalRelatorio" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="min-width: 90%; min-height: 90%; height: 90%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="exampleModalLabel">Relatório de Usuários</h5>
+                        <button (click)="limpaRelatorio()" type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <iframe id="pdf" width="100%" height="500" frameborder="0" allowtransparency="true"></iframe>
+                    </div>
+                    <div class="modal-footer">
+                        <button (click)="limpaRelatorio()" type="button" class="btn btn-secondary"
+                            data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <head>
+        <title>Tela de Cadastro e Edição de Usuários</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    </head>
+</form>
