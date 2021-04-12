@@ -26,6 +26,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { ChartsModule } from 'ng2-charts';
 import { BarChartComponent } from './component/user/bar-chart/bar-chart.component';
+import { ToastrModule } from 'ngx-toastr';
+
 
 defineLocale('pt-br', ptBrLocale);
 
@@ -70,7 +72,13 @@ export const routes: ModuleWithProviders = RouterModule.forRoot(appRouters);
     BrowserAnimationsModule,
     TooltipModule.forRoot(),
     NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
-    ChartsModule
+    ChartsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: false,
+      closeButton: true
+    })
   ],
   providers: [BsLocaleService],
   bootstrap: [AppComponent],

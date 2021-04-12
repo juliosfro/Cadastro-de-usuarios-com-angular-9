@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { LoginService } from './../service/login.service';
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

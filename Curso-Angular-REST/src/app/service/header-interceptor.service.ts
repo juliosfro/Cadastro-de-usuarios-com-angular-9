@@ -31,16 +31,15 @@ export class HeaderInterceptorService implements HttpInterceptor {
   processError(error: HttpErrorResponse): Observable<any> {
     let errorMessage = "Erro desconhecido.";
     if (error.error instanceof ErrorEvent) {
-      console.error(error.error);
+      console.error(error.error + 'Fernanda');
       errorMessage = 'Error: ' + error.error.error;
     } else {
-      errorMessage = 'Código: ' + error.error.code + '\nMessage: ' + error.error.message;
+      errorMessage = `{"code":"${error.error.code}", "message":"${error.error.message}"}`;
     }
-    window.alert(errorMessage);
+    // window.alert(errorMessage);
     return throwError(errorMessage);
   }
 }
-
 
 @NgModule({
   providers: [{

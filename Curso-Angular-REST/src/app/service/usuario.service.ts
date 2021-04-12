@@ -1,3 +1,4 @@
+import { ErrorDetails } from './../model/errorDetails';
 import { UserReport } from './../model/userReport';
 import { User } from '../model/user';
 import { AppConstants } from './../app-constants';
@@ -9,6 +10,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UsuarioService {
+
+  errorDetail = new ErrorDetails();
 
   constructor(private http: HttpClient) { }
   /*
@@ -44,7 +47,7 @@ export class UsuarioService {
   }
 
   deleteUserById(id: Number): Observable<any> {
-    return this.http.delete(`${AppConstants.baseUrl}${id}`, { responseType: 'text' });
+    return this.http.delete(`${AppConstants.baseUrl}${id}`, { observe: 'response' });
   }
 
   /*
@@ -57,13 +60,13 @@ export class UsuarioService {
     }
   */
   createUser(user: User): Observable<any> {
-    return this.http.post<any>(`${AppConstants.baseUrl}`, user);
+    return this.http.post<any>(`${AppConstants.baseUrl}`, user, { observe: 'response' });
   }
 
   updateUser(user: User): Observable<any> {
     //user.dataNascimento = "13/8/1992";
     //alert(user.dataNascimento);
-    return this.http.put<any>(`${AppConstants.baseUrl}`, user);
+    return this.http.put<any>(`${AppConstants.baseUrl}`, user, { observe: 'response' });
   }
 
   deleteTelephoneById(id: Number): Observable<any> {

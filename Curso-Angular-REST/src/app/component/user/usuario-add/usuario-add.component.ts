@@ -1,3 +1,4 @@
+import { ErrorDetails } from './../../../model/errorDetails';
 import { Telefone } from 'src/app/model/telefone';
 import { NgbDateAdapter, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
 import { UsuarioService } from './../../../service/usuario.service';
@@ -5,9 +6,9 @@ import { User } from 'src/app/model/user';
 import { Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbDateParserFormatter, NgbDateStruct, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
-import { setTheme } from 'ngx-bootstrap/utils';
 import { Component, ViewChild } from '@angular/core';
 import { Profissao } from 'src/app/model/profissao';
+import { ToastrService } from 'ngx-toastr';
 
 const I18N_VALUES = {
   'pt-br': {// Provide labels in multiple languages
@@ -50,7 +51,7 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
   getMonthShortName(month: number): string {
     return I18N_VALUES[this._i18n.language].months[month - 1];
   }
-  
+
   getMonthFullName(month: number): string {
     return this.getMonthShortName(month);
   }
@@ -138,6 +139,8 @@ export class UsuarioAddComponent implements OnInit {
 
   @ViewChild('datePickerInput') datePicker: NgbInputDatepicker;
 
+  errorDetails = new ErrorDetails();
+
   minDate = { year: 1900, month: 1, day: 1 };
   maxDate = { year: 2030, month: 1, day: 1 };
   usuario = new User();
@@ -145,13 +148,14 @@ export class UsuarioAddComponent implements OnInit {
   profissao = new Profissao();
   profissao_array: Array<Profissao>;
 
-  constructor(private route: ActivatedRoute, private userService: UsuarioService) {
-    setTheme('bs3');
+  constructor(private route: ActivatedRoute, private userService: UsuarioService,
+    private toastr: ToastrService) {
+
   }
 
   ngOnInit(): void {
     document.getElementById('nome').focus();
-    
+
     this.userService.readAllUsersProfessions().subscribe(data => {
       this.profissao_array = data;
     });
@@ -172,16 +176,34 @@ export class UsuarioAddComponent implements OnInit {
 
   createUser(): void {
     if (this.usuario.id != null && this.usuario.id.toString().trim() != null) {
-      // alert(this.usuario.dataNascimento);
       this.userService.updateUser(this.usuario).subscribe(data => {
+        data.status == 200 ? this.toastr.success('Dados atualizados com sucesso.') : null;
         this.newUser();
-        // this.usuario.dataNascimento = null;
         document.getElementById('nome').focus();
+      }, error => {
+
+        const errors = JSON.parse(error);
+        this.errorDetails.error = errors.message;
+        this.errorDetails.code = errors.code;
+
+        if (this.errorDetails.code === '400 BAD_REQUEST') {
+          this.toastr.warning(this.errorDetails.error.toString());
+        }
+
       });
     } else {
       this.userService.createUser(this.usuario).subscribe(data => {
+        data.status == 200 ? this.toastr.success('Dados cadastrados com sucesso.') : null;
         this.newUser();
-        // this.usuario.dataNascimento = null;
+      }, error => {
+
+        const errors = JSON.parse(error);
+        this.errorDetails.error = errors.message;
+        this.errorDetails.code = errors.code;
+
+        if (this.errorDetails.code === '400 BAD_REQUEST') {
+          this.toastr.warning(this.errorDetails.error.toString());
+        }
       });
       document.getElementById('nome').focus();
     }

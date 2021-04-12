@@ -1,6 +1,7 @@
 import { UsuarioService } from './../../service/usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/model/user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user',
@@ -17,7 +18,7 @@ export class UserComponent implements OnInit {
   size_array: Number[] = [5, 10, 15, 20];
   size: Number = this.size_array[0];
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService, private toastr: ToastrService) { }
 
   // Configuração da ordenação
   key: string = 'id';
@@ -39,7 +40,10 @@ export class UserComponent implements OnInit {
     document.getElementById('nome').focus();
     (confirm('Deseja remover esse usuário?')) ?
       this.usuarioService.deleteUserById(id).subscribe(data => {
+        data.status == 200 ? this.toastr.success("Usuário deletado com sucesso.") : null;
         this.users_array.splice(index, 1);
+      }, error => {
+
       }) : null;
   }
 
