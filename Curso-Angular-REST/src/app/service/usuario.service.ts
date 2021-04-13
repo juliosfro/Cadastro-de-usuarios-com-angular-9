@@ -81,16 +81,12 @@ export class UsuarioService {
     }
   }
 
-  downloadPdfRelatorio(): void {
-    this.http.get(AppConstants.baseUrl + 'relatorio', { responseType: 'text' }).subscribe(data => {
-      document.querySelector('iframe').src = data;
-    });
+  downloadPdfRelatorio(): Observable<any> {
+    return this.http.get(AppConstants.baseUrl + 'relatorio', { responseType: 'text' });
   }
 
-  downloadPdfRelatorioParam(userReport: UserReport): void {
-    this.http.post(AppConstants.baseUrl + 'relatorio/', userReport, { responseType: 'text' }).subscribe(data => {
-      document.querySelector('iframe').src = data;
-    });
+  downloadPdfRelatorioParam(userReport: UserReport): Observable<any> {
+    return this.http.post(AppConstants.baseUrl + 'relatorio/', userReport, { responseType: 'text' });
   }
 
   carregarGrafico(): Observable<any> {

@@ -1,3 +1,4 @@
+import { ErrorDetails } from './../../model/errorDetails';
 import { UsuarioService } from './../../service/usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/model/user';
@@ -17,6 +18,8 @@ export class UserComponent implements OnInit {
   resultsPerPage: Number;
   size_array: Number[] = [5, 10, 15, 20];
   size: Number = this.size_array[0];
+
+  errorDetails = new ErrorDetails();
 
   constructor(private usuarioService: UsuarioService, private toastr: ToastrService) { }
 
@@ -62,6 +65,11 @@ export class UserComponent implements OnInit {
       this.resultsPerPage = data.totalElements;
       this.total_pages = data.totalPages;
       (this.pagina_atual > data.totalPages && this.pagina_atual !== 1) ? this.updateIndexPageAllUsers() : null;
+    }, error => {
+      const errors = JSON.parse(error);
+      this.errorDetails.error = errors.message;
+      this.errorDetails.code = errors.code;
+      this.toastr.warning(this.errorDetails.error.toString());
     });
   }
 
@@ -82,11 +90,13 @@ export class UserComponent implements OnInit {
       this.readUserByNamePageSort() : this.readAllUsersPageSort();
   }
 
-  imprimeRelatorio() {
-    return this.usuarioService.downloadPdfRelatorio();
+  imprimeRelatorio(): void {
+    this.usuarioService.downloadPdfRelatorio().subscribe(data => {
+      document.querySelector('iframe').src = data;
+    });
   }
 
-  limpaRelatorio() {
+  limpaRelatorio(): void {
     document.querySelector('iframe').src = '';
   }
 }

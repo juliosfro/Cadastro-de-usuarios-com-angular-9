@@ -158,6 +158,11 @@ export class UsuarioAddComponent implements OnInit {
 
     this.userService.readAllUsersProfessions().subscribe(data => {
       this.profissao_array = data;
+    }, error => {
+      const errors = JSON.parse(error);
+      this.errorDetails.error = errors.message;
+      this.errorDetails.code = errors.code;
+      this.toastr.warning(this.errorDetails.error.toString());
     });
 
     let id = this.route.snapshot.paramMap.get('id');

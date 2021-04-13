@@ -31,9 +31,13 @@ export class HeaderInterceptorService implements HttpInterceptor {
   processError(error: HttpErrorResponse): Observable<any> {
     let errorMessage = "Erro desconhecido.";
     if (error.error instanceof ErrorEvent) {
-      console.error(error.error + 'Fernanda');
       errorMessage = 'Error: ' + error.error.error;
     } else {
+      if (error.status == 403) {
+        const mensagemErro = JSON.stringify(error.error).split('.')[0].replace('"', '').replace("c", 'ç') + '.';
+        errorMessage = `{"code":"${error.status}", "message":"${mensagemErro}"}`;
+        return throwError(errorMessage);
+      }
       errorMessage = `{"code":"${error.error.code}", "message":"${error.error.message}"}`;
     }
     // window.alert(errorMessage);
